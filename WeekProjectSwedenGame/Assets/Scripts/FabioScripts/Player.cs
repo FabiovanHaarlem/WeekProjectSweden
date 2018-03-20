@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
 
     private Rigidbody m_Rigidbody;
 
+    private RaycastHit m_RayCastHit;
+
     void Start()
     {
         m_CollectedTrash = new List<GameObject>();
@@ -44,6 +46,7 @@ public class Player : MonoBehaviour
 
         //transform.position += new Vector3(Input.GetAxis("Horizontal") * m_Speed, 0, Input.GetAxis("Vertical") * m_Speed);
         ConsomeOxygen();
+        SetCamera();
     }
 
     private void ConsomeOxygen()
@@ -104,10 +107,13 @@ public class Player : MonoBehaviour
         Ray ray = (Camera.main.ScreenPointToRay(Input.mousePosition));
 
         Physics.Raycast(ray, out hit, Mathf.Infinity);
+        m_RayCastHit = hit;
 
         Debug.DrawRay(Camera.main.transform.position, ray.direction * 50, Color.red);
 
-        Quaternion rotation = Quaternion.LookRotation(hit.point);
+        Vector3 dir = (hit.point - transform.position).normalized;
+
+        Quaternion rotation = Quaternion.LookRotation(dir);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, m_RotationSpeed * Time.deltaTime);
     }
 
