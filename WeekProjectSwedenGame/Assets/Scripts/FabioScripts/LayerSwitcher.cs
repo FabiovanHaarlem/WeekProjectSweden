@@ -18,7 +18,7 @@ public class LayerSwitcher : MonoBehaviour
     private float m_SwitchLayerValue;
 
     private bool m_SwitchingLayer;
-
+    
     private void Start()
     {
         m_SwitchingLayer = false;
@@ -34,7 +34,6 @@ public class LayerSwitcher : MonoBehaviour
             {
                 if (m_LayerIndex >= 0 && m_LayerIndex <= 3)
                 {
-                    Debug.Log("Move Down");
                     SwitchLayer(-1);
                 }
             }
@@ -50,7 +49,7 @@ public class LayerSwitcher : MonoBehaviour
 
         if (m_SwitchingLayer)
         {
-            m_SwitchLayerValue += Time.deltaTime / 2f;
+            m_SwitchLayerValue += Time.deltaTime / 1.5f;
             if (m_SwitchLayerValue > 1f)
             {
                 m_SwitchLayerValue = 0f;

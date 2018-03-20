@@ -12,30 +12,92 @@ public class Player : MonoBehaviour
     private int m_Oxygen;
     [SerializeField]
     private float m_OxygenConsumeTimer;
+    [SerializeField]
+    private GameObject m_CameraHolder;
+
+    private int m_MaxOxygen;
+    private float m_MaxDepth;
+    private float m_CurrentDepth;
 
     private List<GameObject> m_CollectedTrash;
+
+    private Rigidbody m_Rigidbody;
+
+    private RaycastHit m_RayCastHit;
 
     void Start()
     {
         m_CollectedTrash = new List<GameObject>();
-        m_Speed = 0.6f;
+        m_Rigidbody = GetComponent<Rigidbody>();
+        m_Speed = 1.2f;
         m_RotationSpeed = 50f;
-        m_Oxygen = 100;
+        m_Oxygen = 30;
         m_OxygenConsumeTimer = 3f;
+        m_MaxDepth = 10f;
     }
 
 	void Update ()
     {
-        transform.position += new Vector3(Input.GetAxis("Horizontal") * m_Speed, 0, Input.GetAxis("Vertical") * m_Speed);
+        if (Input.GetKey(KeyCode.W))
+        {
+            Vector3 forwardVector = transform.rotation * Vector3.forward;
+            transform.position += forwardVector * (Time.deltaTime * m_Speed);
+        }
+
+        //transform.position += new Vector3(Input.GetAxis("Horizontal") * m_Speed, 0, Input.GetAxis("Vertical") * m_Speed);
         ConsomeOxygen();
+        SetCamera();
     }
 
     private void ConsomeOxygen()
     {
-        if (m_OxygenConsumeTimer <= 0f)
+        m_CurrentDepth = transform.position.z;
+
+        if (m_CurrentDepth > m_MaxDepth)
         {
-            m_Oxygen -= 3;
+            if (m_OxygenConsumeTimer <= 0f)
+            {
+                m_Oxygen -= 6;
+                m_OxygenConsumeTimer = 3f;
+            }
         }
+        else
+        {
+            if (m_OxygenConsumeTimer <= 0f)
+            {
+                m_Oxygen -= 3;
+                m_OxygenConsumeTimer = 3f;
+            }
+        }
+    }
+
+    public List<GameObject> SellTrash()
+    {
+        List<GameObject> trash = m_CollectedTrash;
+        m_CollectedTrash.Clear();
+
+        return trash;
+    }
+
+    public void UpgradeAirTank(int muliplier)
+    {
+        m_MaxOxygen = 30 * muliplier;
+        ResetOxygen();
+    }
+
+    public void UpgradeMaxDepth(int multiplier)
+    {
+        m_MaxDepth = 10f * multiplier;
+    }
+
+    public void ResetOxygen()
+    {
+        m_Oxygen = m_MaxOxygen;
+    }
+
+    private void SetCamera()
+    {
+        m_CameraHolder.transform.position = transform.position;
     }
 
     private void FixedUpdate()
@@ -45,10 +107,13 @@ public class Player : MonoBehaviour
         Ray ray = (Camera.main.ScreenPointToRay(Input.mousePosition));
 
         Physics.Raycast(ray, out hit, Mathf.Infinity);
+        m_RayCastHit = hit;
 
         Debug.DrawRay(Camera.main.transform.position, ray.direction * 50, Color.red);
 
-        Quaternion rotation = Quaternion.LookRotation(hit.point);
+        Vector3 dir = (hit.point - transform.position).normalized;
+
+        Quaternion rotation = Quaternion.LookRotation(dir);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, m_RotationSpeed * Time.deltaTime);
     }
 
@@ -57,7 +122,6 @@ public class Player : MonoBehaviour
         if (collidedObject.CompareTag("Trash"))
         {
             m_CollectedTrash.Add(collidedObject.gameObject);
-            collidedObject.gameObject.SetActive(false);
         }
     }
 }
