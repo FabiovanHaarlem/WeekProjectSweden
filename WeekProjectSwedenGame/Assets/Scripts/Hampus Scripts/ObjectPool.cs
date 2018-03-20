@@ -8,7 +8,7 @@ public class ObjectPool : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         fishlist = new List<Fish>();
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 100; i++)
         {
             GameObject gameObject = Instantiate(Resources.Load<GameObject>("Prefabs/Fish"));
             fishlist.Add(gameObject.GetComponent<Fish>());
