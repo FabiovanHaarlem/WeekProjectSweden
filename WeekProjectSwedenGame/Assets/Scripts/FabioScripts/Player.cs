@@ -23,13 +23,17 @@ public class Player : MonoBehaviour
 
     private Rigidbody m_Rigidbody;
 
-    private RaycastHit m_RayCastHit;
+    [SerializeField]
+    private Animator m_Animator;
+
+
+    private int m_State;
 
     void Start()
     {
         m_CollectedTrash = new List<GameObject>();
         m_Rigidbody = GetComponent<Rigidbody>();
-        m_Speed = 1.2f;
+        m_Speed = 1.5f;
         m_RotationSpeed = 50f;
         m_Oxygen = 30;
         m_OxygenConsumeTimer = 3f;
@@ -42,11 +46,17 @@ public class Player : MonoBehaviour
         {
             Vector3 forwardVector = transform.rotation * Vector3.forward;
             transform.position += forwardVector * (Time.deltaTime * m_Speed);
+            m_State = 1;
+        }
+        else
+        {
+            m_State = 0;
         }
 
         //transform.position += new Vector3(Input.GetAxis("Horizontal") * m_Speed, 0, Input.GetAxis("Vertical") * m_Speed);
         ConsomeOxygen();
         SetCamera();
+        m_Animator.SetInteger("State", m_State);
     }
 
     private void ConsomeOxygen()
@@ -107,7 +117,6 @@ public class Player : MonoBehaviour
         Ray ray = (Camera.main.ScreenPointToRay(Input.mousePosition));
 
         Physics.Raycast(ray, out hit, Mathf.Infinity);
-        m_RayCastHit = hit;
 
         Debug.DrawRay(Camera.main.transform.position, ray.direction * 50, Color.red);
 
