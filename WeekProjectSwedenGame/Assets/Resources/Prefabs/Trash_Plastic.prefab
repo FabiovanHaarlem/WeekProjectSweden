@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23337130383588162}
   m_Layer: 0
   m_Name: Trash_Plastic
-  m_TagString: Untagged
+  m_TagString: Plastic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
