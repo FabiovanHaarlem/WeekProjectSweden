@@ -11,6 +11,9 @@ public class UpgradeWeightLimit : MonoBehaviour
     [SerializeField]
     private GameObject m_BuyIcon;
 
+    [SerializeField]
+    private AudioSource m_AudioSource;
+
     private int m_UpgradeMultiplier;
 
     private void Start()
@@ -41,9 +44,9 @@ public class UpgradeWeightLimit : MonoBehaviour
         {
             if (m_Player.RemoveGold(15 * m_UpgradeMultiplier))
             {
-                Debug.Log("Upgarde Weight Limit");
                 m_Player.UpgradeWeightLimit(20);
                 m_UpgradeMultiplier += 1;
+                m_AudioSource.Play();
             }
         }
     }

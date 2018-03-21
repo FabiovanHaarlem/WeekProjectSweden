@@ -9,6 +9,6 @@ public class GameManager : MonoBehaviour
 	
 	void Start ()
     {
-        m_AudioSource.Play();
+        //m_AudioSource.Play();
 	}
 }

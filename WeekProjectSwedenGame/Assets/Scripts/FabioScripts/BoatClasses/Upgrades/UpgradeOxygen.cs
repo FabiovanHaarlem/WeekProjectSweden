@@ -9,6 +9,9 @@ public class UpgradeOxygen : MonoBehaviour
     [SerializeField]
     private GameObject m_BuyIcon;
 
+    [SerializeField]
+    private AudioSource m_AudioSource;
+
 
     private int m_UpgradeMultiplier;
 
@@ -40,9 +43,9 @@ public class UpgradeOxygen : MonoBehaviour
         {
             if (m_Player.RemoveGold(15 * m_UpgradeMultiplier))
             {
-                Debug.Log("Upgarde Oxygen");
-                m_Player.UpgradeAirTank(m_UpgradeMultiplier);
+                m_Player.UpgradeAirTank(10);
                 m_UpgradeMultiplier += 1;
+                m_AudioSource.Play();
             }
         }
     }

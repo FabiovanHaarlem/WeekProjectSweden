@@ -5,13 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+
+    [SerializeField]
+    private AudioSource m_AudioSource;
+
     public void StartGame()
     {
+        m_AudioSource.Play();
         SceneManager.LoadScene("Fabio");
     }
 
     public void QuitGame()
     {
+        m_AudioSource.Play();
         Application.Quit();
     }
 	

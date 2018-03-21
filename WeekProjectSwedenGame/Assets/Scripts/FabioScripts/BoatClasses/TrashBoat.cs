@@ -10,6 +10,9 @@ public class TrashBoat : MonoBehaviour
     [SerializeField]
     private GameObject m_BuyIcon;
 
+    [SerializeField]
+    private AudioSource m_AudioSource;
+
     private List<GameObject> m_CollectedTrash;
 
     private void Start()
@@ -58,6 +61,7 @@ public class TrashBoat : MonoBehaviour
 
                     m_Player.AddGold(totalGoldEarned);
                     trash.Clear();
+                    m_AudioSource.Play();
                 }
             }
         }

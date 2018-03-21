@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -30,25 +31,36 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Image m_CurrentWeightImage;
 
+    [SerializeField]
+    private Color m_StartingColor;
+    [SerializeField]
+    private Color m_EndingColor;
+
+    [SerializeField]
+    private Text m_MoneyText;
+
     private float m_MaxOxygen;
     private int m_Money;
     private float m_MaxWeight;
     private float m_CurrentWeight;
 
     private int m_State;
+    private float m_TrashCollected;
 
     void Start()
     {
+        RenderSettings.fogColor = m_StartingColor;
         m_CollectedTrash = new List<GameObject>();
         m_Rigidbody = GetComponent<Rigidbody>();
         m_Speed = 2.5f;
         m_RotationSpeed = 50f;
-        m_Oxygen = 30;
-        m_MaxOxygen = 30;
-        m_MaxWeight = 20;
+        m_Oxygen = 30f;
+        m_MaxOxygen = 30f;
+        m_MaxWeight = 20f;
         m_OxygenConsumeTimer = 3f;
         m_Money = 0;
-
+        m_TrashCollected = 0f;
+        m_MoneyText.text = "$" + m_Money;
         UpdateWeightIcon();
     }
 
@@ -65,7 +77,19 @@ public class Player : MonoBehaviour
             m_State = 0;
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("R");
+            m_TrashCollected += 0.5f;
+            ChangeFogColor();
+        }
+
         //transform.position += new Vector3(Input.GetAxis("Horizontal") * m_Speed, 0, Input.GetAxis("Vertical") * m_Speed);
+        if (m_Oxygen <= 0)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+
         ConsomeOxygen();
         SetCamera();
         m_Animator.SetInteger("State", m_State);
@@ -74,6 +98,7 @@ public class Player : MonoBehaviour
     public void AddGold(int amount)
     {
         m_Money += amount;
+        m_MoneyText.text = "$" + m_Money;
     }
 
     public bool RemoveGold(int amount)
@@ -109,8 +134,15 @@ public class Player : MonoBehaviour
     {
         List<GameObject> trash = new List<GameObject>(m_CollectedTrash);
         m_CollectedTrash.Clear();
+        UpdateWeightIcon();
+        m_CurrentWeight = 0f;
 
         return trash;
+    }
+
+    private void ChangeFogColor()
+    {
+        RenderSettings.fogColor = Color.Lerp(m_StartingColor, m_EndingColor, m_TrashCollected / 10);
     }
 
     private void UpdateAirTank()
@@ -120,12 +152,30 @@ public class Player : MonoBehaviour
 
     private void UpdateWeightIcon()
     {
+        Color greenColor = new Color(0, 140, 0, 0.25f);
+        Color orageColor = new Color(140, 140, 0, 0.25f);
+        Color redColor = new Color(140, 0, 0, 0.25f);
+        Color currentColor = greenColor;
         m_CurrentWeightImage.rectTransform.localScale = new Vector3(1, (m_CurrentWeight / m_MaxWeight), 1);
+
+        if (m_CurrentWeight > (m_MaxWeight * 0.8))
+        {
+            currentColor = redColor;
+        }
+        else if (m_CurrentWeight >= (m_MaxWeight * 0.5))
+        {
+            currentColor = orageColor;
+        }
+        else if (m_CurrentWeight < (m_MaxWeight * 0.5))
+        {
+            currentColor = greenColor;
+        }
+        m_CurrentWeightImage.color = currentColor;
     }
 
-    public void UpgradeAirTank(int muliplier)
+    public void UpgradeAirTank(int amount)
     {
-        m_MaxOxygen = 30 * muliplier;
+        m_MaxOxygen += amount;
         ResetOxygen();
     }
 
@@ -134,7 +184,7 @@ public class Player : MonoBehaviour
         m_MaxWeight += amount;
     }
 
-    public void UpgradeSpeed(int amount)
+    public void UpgradeSpeed(float amount)
     {
         m_Speed += amount;
     }
@@ -216,6 +266,8 @@ public class Player : MonoBehaviour
                         break;
                 }
                 UpdateWeightIcon();
+                m_TrashCollected += 0.5f;
+                ChangeFogColor();
             }
         }
     }

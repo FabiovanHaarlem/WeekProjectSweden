@@ -10,6 +10,9 @@ public class UpgradeSpeed : MonoBehaviour
     [SerializeField]
     private GameObject m_BuyIcon;
 
+    [SerializeField]
+    private AudioSource m_AudioSource;
+
     private int m_UpgradeMultiplier;
 
     private void Start()
@@ -40,9 +43,9 @@ public class UpgradeSpeed : MonoBehaviour
         {
             if (m_Player.RemoveGold(15 * m_UpgradeMultiplier))
             {
-                Debug.Log("Upgrade Speed");
-                m_Player.UpgradeSpeed(2);
+                m_Player.UpgradeSpeed(0.5f);
                 m_UpgradeMultiplier += 1;
+                m_AudioSource.Play();
             }
         }
     }
