@@ -32,7 +32,7 @@ public class LayerSwitcher : MonoBehaviour
             //Move layers down
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                if (m_LayerIndex >= 0 && m_LayerIndex <= 3)
+                if (m_LayerIndex >= 1 && m_LayerIndex <= 3)
                 {
                     SwitchLayer(-1);
                 }
@@ -40,7 +40,7 @@ public class LayerSwitcher : MonoBehaviour
             //Move layers up
             else if (Input.GetKeyDown(KeyCode.E))
             {
-                if (m_LayerIndex >= 0 && m_LayerIndex <= 3)
+                if (m_LayerIndex >= 0 && m_LayerIndex <= 2)
                 {
                     SwitchLayer(1);
                 }
