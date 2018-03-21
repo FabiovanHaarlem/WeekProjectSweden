@@ -36,9 +36,10 @@ public class Player : MonoBehaviour
     {
         m_CollectedTrash = new List<GameObject>();
         m_Rigidbody = GetComponent<Rigidbody>();
-        m_Speed = 1.5f;
+        m_Speed = 2.5f;
         m_RotationSpeed = 50f;
         m_Oxygen = 30;
+        m_MaxOxygen = 30;
         m_OxygenConsumeTimer = 3f;
         m_MaxDepth = 10f;
         m_Money = 0;
@@ -87,6 +88,8 @@ public class Player : MonoBehaviour
 
     private void ConsomeOxygen()
     {
+        m_OxygenConsumeTimer -= Time.deltaTime;
+
         if (m_OxygenConsumeTimer <= 0f)
         {
             m_Oxygen -= 3;
@@ -96,7 +99,7 @@ public class Player : MonoBehaviour
 
     public List<GameObject> SellTrash()
     {
-        List<GameObject> trash = m_CollectedTrash;
+        List<GameObject> trash = new List<GameObject>(m_CollectedTrash);
         m_CollectedTrash.Clear();
 
         return trash;
@@ -146,9 +149,11 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider collidedObject)
     {
-        if (collidedObject.CompareTag("Trash"))
+        if (collidedObject.CompareTag("TrashBag") || collidedObject.CompareTag("Barrel" )|| 
+            collidedObject.CompareTag("Can") || collidedObject.CompareTag("Plastic") || collidedObject.CompareTag("Tire"))
         {
             m_CollectedTrash.Add(collidedObject.gameObject);
+            collidedObject.gameObject.SetActive(false);
         }
     }
 }

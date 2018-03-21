@@ -7,28 +7,58 @@ public class TrashBoat : MonoBehaviour
     [SerializeField]
     private Player m_Player;
 
+    [SerializeField]
+    private GameObject m_BuyIcon;
+
     private List<GameObject> m_CollectedTrash;
 
+    private void Start()
+    {
+        m_BuyIcon.SetActive(false);
+        m_CollectedTrash = new List<GameObject>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            List<GameObject> trash = m_Player.SellTrash();
+            m_BuyIcon.SetActive(true);
+        }
+    }
 
-            if (trash.Count >= 1)
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            m_BuyIcon.SetActive(false);
+        }
+    }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+
+            if (Input.GetMouseButtonDown(0))
             {
+                List<GameObject> trash = m_Player.SellTrash();
 
-                int totalGoldEarned = 0;
-
-                for (int i = 0; i < trash.Count; i++)
+                if (trash.Count >= 1)
                 {
-                    int gold = FindRightPrice(trash[i].tag);
-                    totalGoldEarned = gold;
-                }
 
-                m_Player.AddGold(totalGoldEarned);
-                trash.Clear();
+                    int totalGoldEarned = 0;
+
+                    for (int i = 0; i < trash.Count; i++)
+                    {
+                        int gold = FindRightPrice(trash[i].tag);
+                        totalGoldEarned += gold;
+                        m_CollectedTrash.Add(trash[i]);
+                    }
+
+                    m_Player.AddGold(totalGoldEarned);
+                    trash.Clear();
+                }
             }
         }
     }
@@ -39,7 +69,7 @@ public class TrashBoat : MonoBehaviour
 
         switch(tagTrash)
         {
-            case "TrashBar":
+            case "TrashBag":
                 gold = 7;
                 break;
             case "Barrel":

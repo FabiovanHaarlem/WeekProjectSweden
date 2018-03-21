@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4958554927230094}
   - component: {fileID: 33199388834558978}
   - component: {fileID: 23752033794033948}
+  - component: {fileID: 65543498244600890}
   m_Layer: 0
   m_Name: Trash_Barrel
   m_TagString: Barrel
@@ -34,13 +35,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1862079294450238}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1923, y: 0, z: 0}
+  m_LocalRotation: {x: 0.7716273, y: -0.005705215, z: -0.0069170324, w: 0.6360118}
+  m_LocalPosition: {x: 5.5413156, y: 1.6745495, z: -8.141743}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 101.05298, y: 5.366989, z: 5.26799}
 --- !u!23 &23752033794033948
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -82,3 +83,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1862079294450238}
   m_Mesh: {fileID: 4300000, guid: 1133f501bd2f2a34c96ff837b6364602, type: 3}
+--- !u!65 &65543498244600890
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1862079294450238}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8335009, y: 1.2, z: 0.7218333}
+  m_Center: {x: -0.00000047641805, y: 0.600001, z: -0.00000006258489}
