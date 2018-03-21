@@ -10,19 +10,23 @@ public class ObjectPool : MonoBehaviour {
         fishlist = new List<Fish>();
         for (int i = 0; i < 15; i++)
         {
+            //GameObject fish0 = Instantiate(Resources.Load<GameObject>("Prefabs/Fish"));
+            //fishlist.Add(fish0.GetComponent<Fish>());
+            //fish0.SetActive(false);
+
             GameObject fish0 = Instantiate(Resources.Load<GameObject>("Prefabs/Fish01"));
             fishlist.Add(fish0.GetComponent<Fish>());
             fish0.SetActive(false);
-            GameObject fish1 = Instantiate(Resources.Load<GameObject>("Prefabs/Fish02"));
+            GameObject fish1 = Instantiate(Resources.Load<GameObject>("Prefabs/Fish01 1"));
             fishlist.Add(fish1.GetComponent<Fish>());
             fish1.SetActive(false);
-            GameObject fish2 = Instantiate(Resources.Load<GameObject>("Prefabs/Fish03"));
+            GameObject fish2 = Instantiate(Resources.Load<GameObject>("Prefabs/Fish03 1"));
             fishlist.Add(fish2.GetComponent<Fish>());
             fish2.SetActive(false);
             GameObject fish3 = Instantiate(Resources.Load<GameObject>("Prefabs/Fish04"));
             fishlist.Add(fish3.GetComponent<Fish>());
             fish3.SetActive(false);
-            GameObject fish4 = Instantiate(Resources.Load<GameObject>("Prefabs/Fish05"));
+            GameObject fish4 = Instantiate(Resources.Load<GameObject>("Prefabs/Fish05 1"));
             fishlist.Add(fish4.GetComponent<Fish>());
             fish4.SetActive(false);
             GameObject fish5 = Instantiate(Resources.Load<GameObject>("Prefabs/Fish06"));
@@ -30,7 +34,7 @@ public class ObjectPool : MonoBehaviour {
             fish5.SetActive(false);
 
         }
-	}
+    }
     public void GetFish(Vector3 position, Vector3 TargetPosition)
     {
         for (int i = 0; i < fishlist.Count; i++)

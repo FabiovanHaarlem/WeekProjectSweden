@@ -49,7 +49,7 @@ public class LayerSwitcher : MonoBehaviour
 
         if (m_SwitchingLayer)
         {
-            m_SwitchLayerValue += Time.deltaTime / 1.5f;
+            m_SwitchLayerValue += Time.deltaTime / 2.2f;
             if (m_SwitchLayerValue > 1f)
             {
                 m_SwitchLayerValue = 0f;

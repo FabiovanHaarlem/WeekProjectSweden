@@ -26,19 +26,23 @@ public class Shop : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (gameObject.CompareTag("TrashBoot"))
         {
-            List<GameObject> trash = m_Player.SellTrash();
-
-            for (int i = 0; i < trash.Count; i++)
+            if (other.CompareTag("Player"))
             {
-                m_PlayerCash += 10;
+                List<GameObject> trash = m_Player.SellTrash();
+
+                for (int i = 0; i < trash.Count; i++)
+                {
+                    m_PlayerCash += 10;
+                }
             }
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
+        if (gameObject.CompareTag(""))
         if (other.CompareTag("Player"))
         {
             m_Player.ResetOxygen();

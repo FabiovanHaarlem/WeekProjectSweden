@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Trash
+  - TrashBag
+  - Barrel
+  - Can
+  - Plastic
+  - Tire
   layers:
   - Default
   - TransparentFX
