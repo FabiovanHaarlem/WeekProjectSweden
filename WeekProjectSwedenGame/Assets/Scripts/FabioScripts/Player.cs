@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float m_RotationSpeed;
     [SerializeField]
-    private int m_Oxygen;
+    private float m_Oxygen;
     [SerializeField]
     private float m_OxygenConsumeTimer;
     [SerializeField]
@@ -24,11 +25,15 @@ public class Player : MonoBehaviour
     [SerializeField]
     private LayerMask m_Layer;
 
-    private int m_MaxOxygen;
-    private float m_MaxDepth;
+    [SerializeField]
+    private Image m_CurrentOxygenImage;
+    [SerializeField]
+    private Image m_CurrentWeightImage;
+
+    private float m_MaxOxygen;
     private int m_Money;
-    private int m_MaxWeight;
-    private int m_CurrentWeight;
+    private float m_MaxWeight;
+    private float m_CurrentWeight;
 
     private int m_State;
 
@@ -40,9 +45,11 @@ public class Player : MonoBehaviour
         m_RotationSpeed = 50f;
         m_Oxygen = 30;
         m_MaxOxygen = 30;
+        m_MaxWeight = 20;
         m_OxygenConsumeTimer = 3f;
-        m_MaxDepth = 10f;
         m_Money = 0;
+
+        UpdateWeightIcon();
     }
 
 	void Update ()
@@ -94,6 +101,7 @@ public class Player : MonoBehaviour
         {
             m_Oxygen -= 3;
             m_OxygenConsumeTimer = 3f;
+            UpdateAirTank();
         }
     }
 
@@ -103,6 +111,16 @@ public class Player : MonoBehaviour
         m_CollectedTrash.Clear();
 
         return trash;
+    }
+
+    private void UpdateAirTank()
+    {
+        m_CurrentOxygenImage.rectTransform.localScale = new Vector3(1, (m_Oxygen / m_MaxOxygen), 1);
+    }
+
+    private void UpdateWeightIcon()
+    {
+        m_CurrentWeightImage.rectTransform.localScale = new Vector3(1, (m_CurrentWeight / m_MaxWeight), 1);
     }
 
     public void UpgradeAirTank(int muliplier)
@@ -124,6 +142,7 @@ public class Player : MonoBehaviour
     public void ResetOxygen()
     {
         m_Oxygen = m_MaxOxygen;
+        UpdateAirTank();
     }
 
     private void SetCamera()
@@ -152,8 +171,52 @@ public class Player : MonoBehaviour
         if (collidedObject.CompareTag("TrashBag") || collidedObject.CompareTag("Barrel" )|| 
             collidedObject.CompareTag("Can") || collidedObject.CompareTag("Plastic") || collidedObject.CompareTag("Tire"))
         {
-            m_CollectedTrash.Add(collidedObject.gameObject);
-            collidedObject.gameObject.SetActive(false);
+            int weight = 0;
+
+            switch (collidedObject.tag)
+            {
+                case "TrashBag":
+                    weight = 15;
+                    break;
+                case "Barrel":
+                    weight = 25;
+                    break;
+                case "Can":
+                    weight = 5;
+                    break;
+                case "Plastic":
+                    weight = 5;
+                    break;
+                case "Tire":
+                    weight = 25;
+                    break;
+            }
+
+            if (m_CurrentWeight + weight < m_MaxWeight)
+            {
+                m_CollectedTrash.Add(collidedObject.gameObject);
+                collidedObject.gameObject.SetActive(false);
+
+                switch (collidedObject.tag)
+                {
+                    case "TrashBag":
+                        m_CurrentWeight += 15;
+                        break;
+                    case "Barrel":
+                        m_CurrentWeight += 25;
+                        break;
+                    case "Can":
+                        m_CurrentWeight += 5;
+                        break;
+                    case "Plastic":
+                        m_CurrentWeight += 5;
+                        break;
+                    case "Tire":
+                        m_CurrentWeight += 25;
+                        break;
+                }
+                UpdateWeightIcon();
+            }
         }
     }
 }
