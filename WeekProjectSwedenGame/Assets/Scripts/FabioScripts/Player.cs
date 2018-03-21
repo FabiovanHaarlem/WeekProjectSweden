@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private Animator m_Animator;
+    [SerializeField]
+    private LayerMask m_Layer;
 
 
     private int m_State;
@@ -116,7 +118,7 @@ public class Player : MonoBehaviour
 
         Ray ray = (Camera.main.ScreenPointToRay(Input.mousePosition));
 
-        Physics.Raycast(ray, out hit, Mathf.Infinity);
+        Physics.Raycast(ray, out hit, Mathf.Infinity, m_Layer);
 
         Debug.DrawRay(Camera.main.transform.position, ray.direction * 50, Color.red);
 
