@@ -7,7 +7,7 @@ public class TopOfWater : MonoBehaviour
     [SerializeField]
     private Player m_Player;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {

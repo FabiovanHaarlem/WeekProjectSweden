@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4032928602823368}
   - component: {fileID: 33614334608227230}
   - component: {fileID: 23672814462907816}
+  - component: {fileID: 65375008238840974}
   m_Layer: 0
   m_Name: Trash_Tire
   m_TagString: Tire
@@ -35,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1713047256296908}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.547, y: 0, z: 0}
+  m_LocalPosition: {x: 7.212, y: 1.2321268, z: -9.279552}
   m_LocalScale: {x: 6.073111, y: 6.073111, z: 6.073111}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,3 +83,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1713047256296908}
   m_Mesh: {fileID: 4300000, guid: b0c0566b3ae15e5448b7eb26dde0170b, type: 3}
+--- !u!65 &65375008238840974
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1713047256296908}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.27071062, y: 0.07228783, z: 0.2707106}
+  m_Center: {x: 0, y: -0.008664556, z: 0}

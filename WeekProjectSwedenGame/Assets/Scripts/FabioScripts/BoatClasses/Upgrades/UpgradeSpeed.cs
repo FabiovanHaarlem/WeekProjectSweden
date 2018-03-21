@@ -7,11 +7,31 @@ public class UpgradeSpeed : MonoBehaviour
     [SerializeField]
     private Player m_Player;
 
+    [SerializeField]
+    private GameObject m_BuyIcon;
+
     private int m_UpgradeMultiplier;
 
     private void Start()
     {
         m_UpgradeMultiplier = 1;
+        m_BuyIcon.SetActive(false);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            m_BuyIcon.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            m_BuyIcon.SetActive(false);
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -20,7 +40,8 @@ public class UpgradeSpeed : MonoBehaviour
         {
             if (m_Player.RemoveGold(15 * m_UpgradeMultiplier))
             {
-                m_Player.UpgradeSpeed(5);
+                Debug.Log("Upgrade Speed");
+                m_Player.UpgradeSpeed(2);
                 m_UpgradeMultiplier += 1;
             }
         }
