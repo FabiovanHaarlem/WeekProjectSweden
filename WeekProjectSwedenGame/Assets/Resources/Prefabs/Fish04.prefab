@@ -22,7 +22,10 @@ GameObject:
   - component: {fileID: 33043140678811852}
   - component: {fileID: 23932861088703424}
   - component: {fileID: 95756163968336164}
-  m_Layer: 0
+  - component: {fileID: 195463901102833828}
+  - component: {fileID: 65736123028030466}
+  - component: {fileID: 114970164226014604}
+  m_Layer: 10
   m_Name: Fish04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,6 +86,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1174918339915818}
   m_Mesh: {fileID: 4300000, guid: a0038a6e7c271654587cb1383ff90408, type: 3}
+--- !u!65 &65736123028030466
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1174918339915818}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4431665, y: 0.2733206, z: 0.24894054}
+  m_Center: {x: -0.17278269, y: 0.011627093, z: 0}
 --- !u!95 &95756163968336164
 Animator:
   serializedVersion: 3
@@ -100,3 +115,35 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114970164226014604
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1174918339915818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea638cd83b4df854f991b87ddc8da2ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!195 &195463901102833828
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1174918339915818}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5488006
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.29657477
+  m_BaseOffset: 0.14828739
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
