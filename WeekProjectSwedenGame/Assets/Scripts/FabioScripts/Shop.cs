@@ -42,6 +42,7 @@ public class Shop : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (gameObject.CompareTag(""))
         if (other.CompareTag("Player"))
         {
             m_Player.ResetOxygen();

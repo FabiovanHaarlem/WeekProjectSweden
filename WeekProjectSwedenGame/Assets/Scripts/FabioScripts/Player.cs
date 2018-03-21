@@ -15,10 +15,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject m_CameraHolder;
 
-    private int m_MaxOxygen;
-    private float m_MaxDepth;
-    private float m_CurrentDepth;
-
     private List<GameObject> m_CollectedTrash;
 
     private Rigidbody m_Rigidbody;
@@ -28,6 +24,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private LayerMask m_Layer;
 
+    private int m_MaxOxygen;
+    private float m_MaxDepth;
+    private int m_Money;
+    private int m_MaxWeight;
+    private int m_CurrentWeight;
 
     private int m_State;
 
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour
         m_Oxygen = 30;
         m_OxygenConsumeTimer = 3f;
         m_MaxDepth = 10f;
+        m_Money = 0;
     }
 
 	void Update ()
@@ -61,25 +63,34 @@ public class Player : MonoBehaviour
         m_Animator.SetInteger("State", m_State);
     }
 
-    private void ConsomeOxygen()
+    public void AddGold(int amount)
     {
-        m_CurrentDepth = transform.position.z;
+        m_Money += amount;
+    }
 
-        if (m_CurrentDepth > m_MaxDepth)
+    public bool RemoveGold(int amount)
+    {
+        bool canBuy = false;
+
+        if (m_Money >= amount)
         {
-            if (m_OxygenConsumeTimer <= 0f)
-            {
-                m_Oxygen -= 6;
-                m_OxygenConsumeTimer = 3f;
-            }
+            m_Money -= amount;
+            canBuy = true;
         }
         else
         {
-            if (m_OxygenConsumeTimer <= 0f)
-            {
-                m_Oxygen -= 3;
-                m_OxygenConsumeTimer = 3f;
-            }
+            canBuy = false;
+        }
+
+        return canBuy;
+    }
+
+    private void ConsomeOxygen()
+    {
+        if (m_OxygenConsumeTimer <= 0f)
+        {
+            m_Oxygen -= 3;
+            m_OxygenConsumeTimer = 3f;
         }
     }
 
@@ -97,9 +108,14 @@ public class Player : MonoBehaviour
         ResetOxygen();
     }
 
-    public void UpgradeMaxDepth(int multiplier)
+    public void UpgradeWeightLimit(int amount)
     {
-        m_MaxDepth = 10f * multiplier;
+        m_MaxWeight += amount;
+    }
+
+    public void UpgradeSpeed(int amount)
+    {
+        m_Speed += amount;
     }
 
     public void ResetOxygen()
