@@ -84,7 +84,6 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            Debug.Log("R");
             m_TrashCollected += 0.5f;
             ChangeFogColor();
         }
@@ -92,7 +91,7 @@ public class Player : MonoBehaviour
         //transform.position += new Vector3(Input.GetAxis("Horizontal") * m_Speed, 0, Input.GetAxis("Vertical") * m_Speed);
         if (m_Oxygen <= 0)
         {
-            SceneManager.LoadScene("MainMenu");
+            GoToGameOverScreen();
         }
 
         ConsomeOxygen();
@@ -147,7 +146,7 @@ public class Player : MonoBehaviour
 
     private void ChangeFogColor()
     {
-        RenderSettings.fogColor = Color.Lerp(m_StartingColor, m_EndingColor, m_TrashCollected / 10);
+        RenderSettings.fogColor = Color.Lerp(m_StartingColor, m_EndingColor, m_TrashCollected / 15);
     }
 
     private void UpdateAirTank()
@@ -207,6 +206,24 @@ public class Player : MonoBehaviour
     private void SetCamera()
     {
         m_CameraHolder.transform.position = transform.position;
+    }
+
+    private void CheckIfOceanIsClean()
+    {
+        if (m_TrashCollected >= 15)
+        {
+            GoToWinScreen();
+        }
+    }
+
+    private void GoToWinScreen()
+    {
+        SceneManager.LoadScene("WinScreen");
+    }
+
+    private void GoToGameOverScreen()
+    {
+        SceneManager.LoadScene("GameOver");
     }
 
     private void FixedUpdate()
