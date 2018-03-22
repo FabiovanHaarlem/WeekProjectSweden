@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeWeightLimit : MonoBehaviour
 {
@@ -14,12 +15,21 @@ public class UpgradeWeightLimit : MonoBehaviour
     [SerializeField]
     private AudioSource m_AudioSource;
 
+    [SerializeField]
+    private Text m_CostText;
+
     private int m_UpgradeMultiplier;
 
     private void Start()
     {
         m_UpgradeMultiplier = 1;
         m_BuyIcon.SetActive(false);
+        UpdateCost(15 * m_UpgradeMultiplier);
+    }
+
+    private void UpdateCost(float cost)
+    {
+        m_CostText.text = "$" + cost;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,6 +57,7 @@ public class UpgradeWeightLimit : MonoBehaviour
                 m_Player.UpgradeWeightLimit(20);
                 m_UpgradeMultiplier += 1;
                 m_AudioSource.Play();
+                UpdateCost(15 * m_UpgradeMultiplier);
             }
         }
     }

@@ -13,10 +13,23 @@ public class Spawner : MonoBehaviour
 
     private ObjectPool m_ObjectPool;
 
+    private float m_TimerReset;
+
+    private float m_TrashCollected;
+
     private void Start()
     {
         m_ObjectPool = GetComponent<ObjectPool>();
-        m_SpawnFishTimer = 0.5f;
+        m_SpawnFishTimer = 2f;
+        m_TimerReset = m_SpawnFishTimer;
+        m_TrashCollected = 0;
+    }
+
+    public void SpawnMoreFish()
+    {
+        m_TrashCollected += 1;
+        m_SpawnFishTimer = m_TimerReset - (m_TrashCollected / 10);
+        m_TimerReset = m_SpawnFishTimer;
     }
 
     private void Update()
@@ -41,7 +54,7 @@ public class Spawner : MonoBehaviour
             }
 
             m_ObjectPool.GetFish(spawnLocation, targetLocation);
-            m_SpawnFishTimer = 0.5f;
+            m_SpawnFishTimer = m_TimerReset;
         }
     }
 

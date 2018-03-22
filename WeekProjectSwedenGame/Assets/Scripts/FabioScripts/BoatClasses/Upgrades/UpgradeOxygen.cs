@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeOxygen : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class UpgradeOxygen : MonoBehaviour
     [SerializeField]
     private AudioSource m_AudioSource;
 
+    [SerializeField]
+    private Text m_CostText;
+
 
     private int m_UpgradeMultiplier;
 
@@ -19,6 +23,12 @@ public class UpgradeOxygen : MonoBehaviour
     {
         m_UpgradeMultiplier = 1;
         m_BuyIcon.SetActive(false);
+        UpdateCost(15 * m_UpgradeMultiplier);
+    }
+
+    private void UpdateCost(float cost)
+    {
+        m_CostText.text = "$" + cost;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,6 +56,8 @@ public class UpgradeOxygen : MonoBehaviour
                 m_Player.UpgradeAirTank(10);
                 m_UpgradeMultiplier += 1;
                 m_AudioSource.Play();
+
+                UpdateCost(15 * m_UpgradeMultiplier);
             }
         }
     }

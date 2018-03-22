@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeSpeed : MonoBehaviour
 {
@@ -13,12 +14,21 @@ public class UpgradeSpeed : MonoBehaviour
     [SerializeField]
     private AudioSource m_AudioSource;
 
+    [SerializeField]
+    private Text m_CostText;
+
     private int m_UpgradeMultiplier;
 
     private void Start()
     {
         m_UpgradeMultiplier = 1;
         m_BuyIcon.SetActive(false);
+        UpdateCost(15 * m_UpgradeMultiplier);
+    }
+
+    private void UpdateCost(float cost)
+    {
+        m_CostText.text = "$" + cost;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,6 +56,7 @@ public class UpgradeSpeed : MonoBehaviour
                 m_Player.UpgradeSpeed(0.5f);
                 m_UpgradeMultiplier += 1;
                 m_AudioSource.Play();
+                UpdateCost(15 * m_UpgradeMultiplier);
             }
         }
     }

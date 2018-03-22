@@ -39,6 +39,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Text m_MoneyText;
 
+    [SerializeField]
+    private AudioSource m_PickUpSound;
+    [SerializeField]
+    private Spawner m_Spawner;
+
     private float m_MaxOxygen;
     private int m_Money;
     private float m_MaxWeight;
@@ -187,6 +192,7 @@ public class Player : MonoBehaviour
     public void UpgradeSpeed(float amount)
     {
         m_Speed += amount;
+        m_RotationSpeed += amount;
     }
 
     public void ResetOxygen()
@@ -268,6 +274,8 @@ public class Player : MonoBehaviour
                 UpdateWeightIcon();
                 m_TrashCollected += 0.5f;
                 ChangeFogColor();
+                m_PickUpSound.Play();
+                m_Spawner.SpawnMoreFish();
             }
         }
     }
