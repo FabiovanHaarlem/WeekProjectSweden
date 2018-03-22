@@ -5,12 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/Fabio.unity
-    guid: 89ddbe07dcf12c044bd9f65ea7480375
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Main.unity
     guid: 80955eedace2fbd458275b494dfa8f46
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 801a688b710d3bb43808568d61b09082
+  - enabled: 1
+    path: Assets/Scenes/Fabio.unity
+    guid: 89ddbe07dcf12c044bd9f65ea7480375
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: d0f1f6135118ce94c93f25be9e983b38

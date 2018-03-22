@@ -15,6 +15,12 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Fabio");
     }
 
+    public void GoToCredits()
+    {
+        m_AudioSource.Play();
+        SceneManager.LoadScene("Credits");
+    }
+
     public void QuitGame()
     {
         m_AudioSource.Play();

@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
             m_State = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             Debug.Log("R");
             m_TrashCollected += 0.5f;
@@ -182,17 +182,20 @@ public class Player : MonoBehaviour
     {
         m_MaxOxygen += amount;
         ResetOxygen();
+        m_MoneyText.text = "$" + m_Money;
     }
 
     public void UpgradeWeightLimit(int amount)
     {
         m_MaxWeight += amount;
+        m_MoneyText.text = "$" + m_Money;
     }
 
     public void UpgradeSpeed(float amount)
     {
         m_Speed += amount;
         m_RotationSpeed += amount;
+        m_MoneyText.text = "$" + m_Money;
     }
 
     public void ResetOxygen()
