@@ -103,6 +103,7 @@ public class Player : MonoBehaviour
     {
         m_Money += amount;
         m_MoneyText.text = "$" + m_Money;
+        UpdateWeightIcon();
     }
 
     public bool RemoveGold(int amount)
@@ -210,7 +211,7 @@ public class Player : MonoBehaviour
 
     private void CheckIfOceanIsClean()
     {
-        if (m_TrashCollected >= 15)
+        if (m_TrashCollected >= 10)
         {
             GoToWinScreen();
         }
@@ -296,6 +297,7 @@ public class Player : MonoBehaviour
                 ChangeFogColor();
                 m_PickUpSound.Play();
                 m_Spawner.SpawnMoreFish();
+                CheckIfOceanIsClean();
             }
         }
     }

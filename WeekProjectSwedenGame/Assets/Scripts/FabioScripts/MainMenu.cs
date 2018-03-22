@@ -9,6 +9,14 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private AudioSource m_AudioSource;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            QuitGame();
+        }
+    }
+
     public void StartGame()
     {
         m_AudioSource.Play();
@@ -17,13 +25,11 @@ public class MainMenu : MonoBehaviour
 
     public void GoToCredits()
     {
-        m_AudioSource.Play();
         SceneManager.LoadScene("Credits");
     }
 
     public void QuitGame()
     {
-        m_AudioSource.Play();
         Application.Quit();
     }
 	
