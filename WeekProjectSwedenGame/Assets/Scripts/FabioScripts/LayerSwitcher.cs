@@ -8,6 +8,9 @@ public class LayerSwitcher : MonoBehaviour
     private List<Vector3> m_LayerPositions;
 
     [SerializeField]
+    private List<GameObject> m_LastTwoLayers;
+
+    [SerializeField]
     private GameObject m_LayerParentPoint;
 
     private Vector3 m_CurrentLayer;
@@ -23,6 +26,14 @@ public class LayerSwitcher : MonoBehaviour
     {
         m_SwitchingLayer = false;
         m_SwitchLayerValue = 0;
+
+        if (m_LayerIndex <= 2)
+        {
+            for (int i = 0; i < m_LastTwoLayers.Count; i++)
+            {
+                m_LastTwoLayers[i].SetActive(false);
+            }
+        }
     }
 
     private void Update()
@@ -36,6 +47,21 @@ public class LayerSwitcher : MonoBehaviour
                 {
                     SwitchLayer(-1);
                 }
+
+                if (m_LayerIndex <= 1)
+                {
+                    for (int i = 0; i < m_LastTwoLayers.Count; i++)
+                    {
+                        m_LastTwoLayers[i].SetActive(false);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < m_LastTwoLayers.Count; i++)
+                    {
+                        m_LastTwoLayers[i].SetActive(true);
+                    }
+                }
             }
             //Move layers up
             else if (Input.GetKeyDown(KeyCode.E))
@@ -43,6 +69,21 @@ public class LayerSwitcher : MonoBehaviour
                 if (m_LayerIndex >= 0 && m_LayerIndex <= 2)
                 {
                     SwitchLayer(1);
+                }
+
+                if (m_LayerIndex < 1)
+                {
+                    for (int i = 0; i < m_LastTwoLayers.Count; i++)
+                    {
+                        m_LastTwoLayers[i].SetActive(false);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < m_LastTwoLayers.Count; i++)
+                    {
+                        m_LastTwoLayers[i].SetActive(true);
+                    }
                 }
             }
         }
