@@ -86,6 +86,7 @@ public class Player : MonoBehaviour
         {
             m_TrashCollected += 0.5f;
             ChangeFogColor();
+            CheckIfOceanIsClean();
         }
 
         //transform.position += new Vector3(Input.GetAxis("Horizontal") * m_Speed, 0, Input.GetAxis("Vertical") * m_Speed);
